@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marron's Custom Critter</title>
+    <style>
+        body {
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+            color: white;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+        
+        h1 {
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+        
+        @keyframes glow {
+            from { text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); }
+            to { text-shadow: 2px 2px 20px rgba(255, 255, 255, 0.8); }
+        }
+        
+        .critter {
+            text-align: center;
+            font-size: 8em;
+            margin: 30px 0;
+            animation: bounce 2s infinite;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        
+        .critter:hover {
+            transform: scale(1.2) rotate(10deg);
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-30px); }
+            60% { transform: translateY(-15px); }
+        }
+        
+        .customizations {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 30px 0;
+        }
+        
+        .customizations h2 {
+            color: #FFD700;
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+        
+        .customizations ol {
+            font-size: 1.1em;
+            line-height: 1.8;
+        }
+        
+        .customizations li {
+            margin-bottom: 15px;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            border-left: 4px solid #FFD700;
+        }
+        
+        .sound-button {
+            display: block;
+            margin: 20px auto;
+            padding: 15px 30px;
+            background: #FF6B6B;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
+        }
+        
+        .sound-button:hover {
+            background: #FF5252;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 107, 107, 0.6);
+        }
+        
+        .creator-info {
+            text-align: center;
+            margin-top: 30px;
+            font-style: italic;
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Marron Maish's Magical Critter</h1>
+        
+        <div class="critter" onclick="makeSound()" title="Click me!">🦄</div>
+        
+        <div class="customizations">
+            <h2>My 3 Custom Additions</h2>
+            <ol>
+                <li><strong>Animated Glowing Title:</strong> I added a CSS animation that makes the title glow and pulse, creating an eye-catching effect that draws attention to the page header and gives it a magical feel.</li>
+                
+                <li><strong>Interactive Sound Effects:</strong> I implemented JavaScript functionality that plays a magical sound effect when you click on the unicorn critter, making the page more engaging and interactive for visitors.</li>
+                
+                <li><strong>Advanced Hover Animations:</strong> I created complex CSS hover effects on the critter that combines scaling, rotation, and smooth transitions, making the unicorn come alive when users interact with it.</li>
+            </ol>
+        </div>
+        
+        <button class="sound-button" onclick="makeSound()">🔊 Make Magical Sound</button>
+        
+        <div class="creator-info">
+            <p>Created with ✨ magic ✨ by Marron Maish</p>
+        </div>
+    </div>
+
+    <script>
+        function makeSound() {
+            // Create audio context for sound generation
+            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            
+            // Create a magical bell-like sound
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+            
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+            
+            // Set frequency for a magical sound
+            oscillator.frequency.setValueAtTime(800, audioContext.currentTime);
+            oscillator.frequency.exponentialRampToValueAtTime(400, audioContext.currentTime + 0.5);
+            
+            // Set volume envelope
+            gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.5);
+            
+            // Play the sound
+            oscillator.start(audioContext.currentTime);
+            oscillator.stop(audioContext.currentTime + 0.5);
+            
+            // Add visual feedback
+            const critter = document.querySelector('.critter');
+            critter.style.animation = 'none';
+            setTimeout(() => {
+                critter.style.animation = 'bounce 2s infinite';
+            }, 10);
+        }
+        
+        // Add some sparkle effects when page loads
+        window.addEventListener('load', function() {
+            console.log('🦄 Magical Critter Page Loaded! 🦄');
+        });
+    </script>
+</body>
+</html>
